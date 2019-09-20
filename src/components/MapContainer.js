@@ -5,11 +5,15 @@ import apiClient from "../apiClient"
 class MapContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { markers: [] };
+    this.state = { markers: [], activeMarker: null };
+  }
+
+  onMarkerClick(props, marker, _e) {
+    this.setState({ activeMarker: marker })
   }
 
   renderMarker = (sample, key) =>
-    <Marker key={key} position={{lat: sample.latitude, lng: sample.longitude}} />
+    <Marker key={key} position={{lat: sample.latitude, lng: sample.longitude}} onClick={this.onMarkerClick} />
 
   render() {
     return (
