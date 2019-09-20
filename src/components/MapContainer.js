@@ -1,7 +1,16 @@
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from "google-maps-react"
 import React from "react"
+import apiClient from "../apiClient"
 
 class MapContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { markers: [] };
+  }
+
+  renderMarker = (sample, key) =>
+    <Marker key={key} position={{lat: sample.latitude, lng: sample.longitude}} />
+
   render() {
     return (
       <Map
@@ -11,12 +20,13 @@ class MapContainer extends React.Component {
         }}
         zoom={18}
         initialCenter={{
+          // ITBA
           lat: -34.604064,
           lng: -58.36754
         }}
       >
 
-        <Marker onClick={() => console.log('Marker click!')} name={'Current location'} />
+        {this.state.markers.map(this.renderMarker)}
 
         {/*<InfoWindow onClose={this.onInfoWindowClose}>*/}
         <InfoWindow onClose={() => console.log('Info window close!')}>
@@ -27,6 +37,15 @@ class MapContainer extends React.Component {
         </InfoWindow>
       </Map>
     );
+  }
+
+  componentDidMount() {
+    console.debug('Getting samples...')
+    apiClient.getSamples().then(response => {
+      const samples = response.data
+      console.debug(`Got ${samples.length} samples:`, samples)
+      this.setState( { markers: samples })
+    })
   }
 }
 
