@@ -1,0 +1,16 @@
+#map {
+  display: grid;
+  grid-template-areas:
+      "map control";
+  grid-template-columns: 3fr 1fr;
+  height: 100vh;
+
+  .container {
+    grid-area: map;
+  }
+
+  .control {
+    grid-area: control;
+    place-self: center;
+  }
+}
