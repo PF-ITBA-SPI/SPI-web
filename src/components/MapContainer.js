@@ -13,9 +13,12 @@ class MapContainer extends React.Component {
     <Marker key={key} position={{lat: sample.latitude, lng: sample.longitude}} onClick={() => this.onMarkerClick(sample)} />
 
   onMarkerClick(markerSample) {
-    this.setState({ currentSample: markerSample })
+    this.setState({ location: null, currentSample: markerSample })
     apiClient.getLocation(markerSample._id).then(location => {
-      const newLocation = (location && location.latitude && location.longitude) ? location : null
+      const newLocation = (location.data && location.data.latitude && location.data.longitude) ? location.data : null
+      if (!newLocation) {
+        console.log('No location found')
+      }
       this.setState({ location: newLocation })
     })
   }
