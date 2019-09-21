@@ -3,7 +3,7 @@ import React from "react"
 import PropTypes from 'prop-types'
 import apiClient from "../apiClient"
 
-class MapContainer2 extends React.Component {
+class MapContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = { buildings: [], markers: [] }
@@ -54,37 +54,11 @@ class MapContainer2 extends React.Component {
   }
 }
 
-MapContainer2.propTypes = {
+MapContainer.propTypes = {
   googleMapURL: PropTypes.string.isRequired,
   loadingElement: PropTypes.element.isRequired,
   containerElement: PropTypes.element.isRequired,
   mapElement: PropTypes.element.isRequired
 }
 
-export default withScriptjs(withGoogleMap(MapContainer2))
-
-// const MapWithGroundOverlay = compose(
-//   withScriptjs,
-//   withGoogleMap
-// )(props =>
-//   <GoogleMap
-//     defaultZoom={12}
-//     defaultCenter={{lat: 40.740, lng: -74.18}}
-//   >
-//     <GroundOverlay
-//       defaultUrl="https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg"
-//       defaultBounds={new google.maps.LatLngBounds(
-//         new google.maps.LatLng(40.712216, -74.22655),
-//         new google.maps.LatLng(40.773941, -74.12544)
-//       )}
-//       defaultOpacity={.5}
-//     />
-//   </GoogleMap>
-// );
-//
-// <MapWithGroundOverlay
-//   googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places"
-//   loadingElement={<div style={{ height: `100%` }} />}
-//   containerElement={<div style={{ height: `400px` }} />}
-//   mapElement={<div style={{ height: `100%` }} />}
-// />
+export default withScriptjs(withGoogleMap(MapContainer))
