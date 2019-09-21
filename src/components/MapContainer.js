@@ -6,11 +6,19 @@ import apiClient from "../apiClient"
 class MapContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { buildings: [], markers: [] }
+    this.state = { buildings: [], markers: [], currentSample: null, location: null }
   }
 
   renderMarker = (sample, key) =>
-    <Marker key={key} position={{lat: sample.latitude, lng: sample.longitude}} />
+    <Marker key={key} position={{lat: sample.latitude, lng: sample.longitude}} onClick={() => this.onMarkerClick(sample)} />
+
+  onMarkerClick(markerSample) {
+    this.setState({ currentSample: markerSample })
+    apiClient.getLocation(markerSample._id).then(location => {
+      const newLocation = (location && location.latitude && location.longitude) ? location : null
+      this.setState({ location: newLocation })
+    })
+  }
 
   renderGroundOverlay = (building, key) => {
     const overlay = building.floors.find(f => f._id === building.defaultFloorId).overlay
@@ -40,6 +48,7 @@ class MapContainer extends React.Component {
 
       {/*{this.state.buildings.map(this.renderGroundOverlay)}*/}
 
+      {this.state.location && <Marker position={{lat: this.state.location.latitude, lng: this.state.location.longitude}} icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" />}
     </GoogleMap>)
   }
 
@@ -58,7 +67,7 @@ MapContainer.propTypes = {
   googleMapURL: PropTypes.string.isRequired,
   loadingElement: PropTypes.element.isRequired,
   containerElement: PropTypes.element.isRequired,
-  mapElement: PropTypes.element.isRequired
+  mapElement: PropTypes.element.isRequired,
 }
 
 export default withScriptjs(withGoogleMap(MapContainer))
