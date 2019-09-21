@@ -29,11 +29,11 @@ class MapContainer extends React.Component {
 
   render() {
     return (<GoogleMap
-      defaultZoom={18}
+      defaultZoom={19}
       defaultCenter={{
         // ITBA
-        lat: -34.604064,
-        lng: -58.36754
+        lat: -34.603564,
+        lng: -58.36774
       }}
     >
       {this.state.markers.map(this.renderMarker)}
