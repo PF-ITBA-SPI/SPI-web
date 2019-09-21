@@ -1,11 +1,11 @@
 import React from "react"
 import "./App.scss"
-import MapContainer2 from "./components/MapContainer2"
+import MapContainer from "./components/MapContainer"
 
 export default function App() {
   return (
     <div id="map">
-      <MapContainer2 className="container"
+      <MapContainer className="container"
         googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${process.env.REACT_APP_MAPS_API_KEY}`}
         containerElement={<div className="container" />}
         mapElement={<div style={{width: '100%', height: '100%'}} />}
