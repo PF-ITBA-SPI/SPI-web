@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const client = axios.create({
   baseURL: config.apiUrl,
-  headers: { Authorization: `Bearer ${process.env.REACT_APP_JWT}`}
+  headers: { Authorization: config.jwt }
 })
 
 export default {
