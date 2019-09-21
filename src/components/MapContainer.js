@@ -6,7 +6,7 @@ import apiClient from "../apiClient"
 class MapContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { buildings: [], markers: [], currentSample: null, location: null }
+    this.state = { buildings: [], samples: [], currentSample: null, location: null }
   }
 
   renderMarker = (sample, key) =>
@@ -44,7 +44,7 @@ class MapContainer extends React.Component {
         lng: -58.36774
       }}
     >
-      {this.state.markers.map(this.renderMarker)}
+      {this.getDefaultSamples().map(this.renderMarker)}
 
       {/*{this.state.buildings.map(this.renderGroundOverlay)}*/}
 
@@ -58,8 +58,18 @@ class MapContainer extends React.Component {
         buildings = buildingsResponse.data
       console.debug(`Got ${buildings.length} building(s)`)
       console.debug(`Got ${samples.length} sample(s)`)
-      this.setState( { markers: samples, buildings })
+      this.setState( { samples, buildings })
     })
+  }
+
+  /**
+   * Get samples that correspond to the default floors of all buildings.
+   *
+   * @returns {array<object>} Matching samples
+   */
+  getDefaultSamples() {
+    const defaultFloorIds = this.state.buildings.map(b => b.defaultFloorId)
+    return this.state.samples.filter(s => defaultFloorIds.includes(s.floorId))
   }
 }
 
