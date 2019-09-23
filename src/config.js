@@ -16,5 +16,5 @@ const CONFIG = {
 }
 
 export default {
-  ...CONFIG.default, ...CONFIG[process.env.NODE_ENV]
+  ...CONFIG.common, ...CONFIG[process.env.NODE_ENV]
 }
