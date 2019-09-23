@@ -51,7 +51,7 @@ class MapContainer extends React.Component {
 
       {/*{this.state.buildings.map(this.renderGroundOverlay)}*/}
 
-      {this.state.location && <Marker position={{lat: this.state.location.latitude, lng: this.state.location.longitude}} icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" />}
+      {this.state.location && <Marker position={{lat: this.state.location.latitude, lng: this.state.location.longitude}} icon="https://maps.google.com/mapfiles/ms/icons/blue-dot.png" />}
     </GoogleMap>)
   }
 
