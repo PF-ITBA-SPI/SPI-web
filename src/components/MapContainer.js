@@ -7,7 +7,13 @@ import apiClient from "../apiClient"
 class MapContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { buildings: [], samples: [], currentSample: null, location: null }
+    this.state = {
+      buildings: [],
+      samples: [],
+      currentSample: null,
+      location: null,
+      currentFloor: null,
+    }
   }
 
   renderMarker = (sample, key) =>
@@ -84,4 +90,16 @@ MapContainer.propTypes = {
   mapElement: PropTypes.element.isRequired,
 }
 
-export default connect(withScriptjs(withGoogleMap(MapContainer)))
+// Wrapped with <script> tag for GMaps + base stuff for it to work with React
+const WrappedMapContainer = withScriptjs(withGoogleMap(MapContainer))
+
+/* ******************************************
+ *              REDUX STUFF
+ * *****************************************/
+
+// TODO I don't think we'll need this
+const mapStateToProps = state => ({
+  currentFloor: state.currentFloor
+})
+
+export default connect(mapStateToProps)(WrappedMapContainer)
