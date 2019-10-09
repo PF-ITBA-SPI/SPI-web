@@ -1,5 +1,6 @@
 import { GoogleMap, withGoogleMap, withScriptjs, Marker, GroundOverlay } from "react-google-maps"
 import React from "react"
+import { connect } from "react-redux"
 import PropTypes from 'prop-types'
 import apiClient from "../apiClient"
 
@@ -83,4 +84,4 @@ MapContainer.propTypes = {
   mapElement: PropTypes.element.isRequired,
 }
 
-export default withScriptjs(withGoogleMap(MapContainer))
+export default connect(withScriptjs(withGoogleMap(MapContainer)))
