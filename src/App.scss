@@ -14,3 +14,16 @@
     place-self: center;
   }
 }
+
+#floorSelector {
+  position: absolute;
+  bottom: 3%;
+  left: 68%;
+
+  display: flex;
+  flex-direction: column-reverse;
+
+  button:not(:last-child) {
+    margin-top: 5px;
+  }
+}

@@ -3,6 +3,8 @@ import { Provider } from 'react-redux'
 import store from './redux/store'
 import "./App.scss"
 import MapContainer from "./components/MapContainer"
+import itba from './itba'
+import FloorSelector from "./components/FloorSelector"
 
 export default function App() {
   return (
@@ -14,11 +16,7 @@ export default function App() {
                       mapElement={<div style={{width: '100%', height: '100%'}} />}
                       loadingElement={<h1>Loading...</h1>}
         />
-        <button style={{
-          position: 'absolute',
-          bottom: '10%',
-          left: '68%',
-        }}>Hola</button>
+        <FloorSelector building={itba} />
         <div className="control">
           <h1>Controls here</h1>
         </div>

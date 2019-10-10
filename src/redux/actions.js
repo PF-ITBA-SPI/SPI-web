@@ -1,6 +1,8 @@
 import actionTypes from './actionTypes'
 
-export const changeFloor = (floorId) => ({
+export const selectFloor = (floorId) => ({
   type: actionTypes.UPDATE_FLOOR,
-  floorId,
+  payload: {
+    floorId,
+  }
 })
