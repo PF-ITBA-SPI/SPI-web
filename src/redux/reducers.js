@@ -1,9 +1,16 @@
-const DEFAULT_STATE = {
-  selectedMarker: null,
+import { combineReducers } from 'redux'
+import actionTypes from "./actionTypes"
+
+const map = (state = {}, action) => {
+  switch (action.type) {
+    case actionTypes.UPDATE_FLOOR:
+      return {
+        ...state,
+        currentFloorId: action.floorId
+      }
+    default:
+      return state
+  }
 }
 
-const defaultReducer = (state = DEFAULT_STATE, _action) => state
-
-export const otherReducer = (state, action) => ({...state, action})
-
-export default defaultReducer
+export default combineReducers({ map })

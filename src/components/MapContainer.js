@@ -12,7 +12,7 @@ class MapContainer extends React.Component {
       samples: [],
       currentSample: null,
       location: null,
-      currentFloor: null,
+      currentFloorId: null,
     }
   }
 
@@ -96,10 +96,4 @@ const WrappedMapContainer = withScriptjs(withGoogleMap(MapContainer))
 /* ******************************************
  *              REDUX STUFF
  * *****************************************/
-
-// TODO I don't think we'll need this
-const mapStateToProps = state => ({
-  currentFloor: state.currentFloor
-})
-
-export default connect(mapStateToProps)(WrappedMapContainer)
+export default connect()(WrappedMapContainer)
