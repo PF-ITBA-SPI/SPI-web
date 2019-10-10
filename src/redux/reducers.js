@@ -18,7 +18,8 @@ const floorSelector = (state = INITIAL_FLOOR_SELECTOR_STATE, action) => {
 }
 
 const INITIAL_APP_STATE = {
-  buildings: []
+  buildings: [],
+  samples: [],
 }
 
 const app = (state = INITIAL_APP_STATE, action) => {

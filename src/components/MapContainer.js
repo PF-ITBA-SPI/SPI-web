@@ -8,8 +8,6 @@ class MapContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      buildings: [],
-      samples: [],
       currentSample: null,
       location: null,
     }
@@ -61,16 +59,6 @@ class MapContainer extends React.Component {
     </GoogleMap>)
   }
 
-  componentDidMount() {
-    Promise.all([apiClient.listBuildings(), apiClient.getSamples()]).then(([buildingsResponse, samplesResponse]) => {
-      const samples = samplesResponse.data,
-        buildings = buildingsResponse.data
-      console.debug(`Got ${buildings.length} building(s)`)
-      console.debug(`Got ${samples.length} sample(s)`)
-      this.setState( { samples, buildings })
-    })
-  }
-
   componentDidUpdate(prevProps/*, prevState, snapshot*/) {
     // Clear location on floor change
     if (this.props.selectedFloorId !== prevProps.selectedFloorId) {
@@ -86,7 +74,7 @@ class MapContainer extends React.Component {
    * @returns {array<object>} Matching samples
    */
   getActiveSamples() {
-    return this.state.samples.filter(s => s.floorId === this.props.selectedFloorId)
+    return this.props.samples.filter(s => s.floorId === this.props.selectedFloorId)
   }
 }
 
@@ -107,6 +95,8 @@ const WrappedMapContainer = withScriptjs(withGoogleMap(MapContainer))
 
 // Update selected floor from state
 const mapStateToProps = state => ({
+  buildings: state.app.buildings,
+  samples: state.app.samples,
   selectedFloorId: state.floorSelector.selectedFloorId
 })
 
