@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import actionTypes from "./actionTypes"
 
 const INITIAL_FLOOR_SELECTOR_STATE = {
-  selectedFloorId: null,
+  selectedFloorId: '5c9e6a3a469ebb001ca897c7',
 }
 
 const floorSelector = (state = INITIAL_FLOOR_SELECTOR_STATE, action) => {
