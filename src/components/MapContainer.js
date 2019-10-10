@@ -1,12 +1,16 @@
 import { GoogleMap, withGoogleMap, withScriptjs, Marker, GroundOverlay } from "react-google-maps"
 import React from "react"
+import { connect } from "react-redux"
 import PropTypes from 'prop-types'
 import apiClient from "../apiClient"
 
 class MapContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { buildings: [], samples: [], currentSample: null, location: null }
+    this.state = {
+      currentSample: null,
+      location: null,
+    }
   }
 
   renderMarker = (sample, key) =>
@@ -47,32 +51,30 @@ class MapContainer extends React.Component {
         lng: -58.36774
       }}
     >
-      {this.getDefaultSamples().map(this.renderMarker)}
+      {this.getActiveSamples().map(this.renderMarker)}
 
       {/*{this.state.buildings.map(this.renderGroundOverlay)}*/}
 
-      {this.state.location && <Marker position={{lat: this.state.location.latitude, lng: this.state.location.longitude}} icon="https://maps.google.com/mapfiles/ms/icons/blue-dot.png" />}
+      {this.state.location && <Marker position={{lat: this.state.location.latitude, lng: this.state.location.longitude}} icon="https://maps.google.com/mapfiles/ms/icons/blue-dot.png" zIndex={this.getActiveSamples().length + 1} />}
     </GoogleMap>)
   }
 
-  componentDidMount() {
-    Promise.all([apiClient.listBuildings(), apiClient.getSamples()]).then(([buildingsResponse, samplesResponse]) => {
-      const samples = samplesResponse.data,
-        buildings = buildingsResponse.data
-      console.debug(`Got ${buildings.length} building(s)`)
-      console.debug(`Got ${samples.length} sample(s)`)
-      this.setState( { samples, buildings })
-    })
+  componentDidUpdate(prevProps/*, prevState, snapshot*/) {
+    // Clear location on floor change
+    if (this.props.selectedFloorId !== prevProps.selectedFloorId) {
+      this.setState({
+        location: null,
+      })
+    }
   }
 
   /**
-   * Get samples that correspond to the default floors of all buildings.
+   * Get samples that belong to the currently selected floor.
    *
    * @returns {array<object>} Matching samples
    */
-  getDefaultSamples() {
-    const defaultFloorIds = this.state.buildings.map(b => b.defaultFloorId)
-    return this.state.samples.filter(s => defaultFloorIds.includes(s.floorId))
+  getActiveSamples() {
+    return this.props.samples.filter(s => s.floorId === this.props.selectedFloorId)
   }
 }
 
@@ -81,6 +83,22 @@ MapContainer.propTypes = {
   loadingElement: PropTypes.element.isRequired,
   containerElement: PropTypes.element.isRequired,
   mapElement: PropTypes.element.isRequired,
+  selectedFloorId: PropTypes.string,
 }
 
-export default withScriptjs(withGoogleMap(MapContainer))
+// Wrapped with <script> tag for GMaps + base stuff for it to work with React
+const WrappedMapContainer = withScriptjs(withGoogleMap(MapContainer))
+
+/* ******************************************
+ *              REDUX STUFF
+ * *****************************************/
+
+// Update selected floor from state
+const mapStateToProps = state => ({
+  buildings: state.app.buildings,
+  samples: state.app.samples,
+  selectedFloorId: state.floorSelector.selectedFloorId
+})
+
+
+export default connect(mapStateToProps)(WrappedMapContainer)
