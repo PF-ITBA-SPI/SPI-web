@@ -12,7 +12,6 @@ class MapContainer extends React.Component {
       samples: [],
       currentSample: null,
       location: null,
-      currentFloorId: null,
     }
   }
 

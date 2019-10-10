@@ -1,3 +1,3 @@
 export default {
-  UPDATE_FLOOR: 'UPDATE_FLOOR',
+  SELECT_FLOOR: 'SELECT_FLOOR',
 }

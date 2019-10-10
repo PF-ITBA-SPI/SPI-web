@@ -13,7 +13,7 @@ class FloorSelector extends React.Component {
   renderButton = floor => {
     const { _id: id, name } = floor
     return (
-      <button key={id} onClick={() => this.props.selectFloor(id)} disabled={id === this.props.currentFloorId}>{name}</button>
+      <button key={id} onClick={() => this.props.selectFloor(id)} disabled={id === this.props.selectedFloorId}>{name}</button>
     )
   }
 
@@ -28,7 +28,7 @@ class FloorSelector extends React.Component {
 
 // Update selected floor from state
 const mapStateToProps = state => ({
-  currentFloorId: state.map.currentFloorId
+  selectedFloorId: state.floorSelector.selectedFloorId
 })
 
 // Dispatch actions from props
@@ -38,7 +38,7 @@ const mapDispatchToProps = ({
 
 FloorSelector.propTypes = {
   building: PropTypes.object.isRequired,
-  currentFloorId: PropTypes.string,
+  selectedFloorId: PropTypes.string,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FloorSelector)
