@@ -4,3 +4,13 @@ export const selectFloor = (floorId) => ({
   type: actionTypes.SELECT_FLOOR,
   floorId,
 })
+
+export const buildingsLoaded = buildings => ({
+  type: actionTypes.BUILDINGS_LOADED,
+  buildings
+})
+
+export const samplesLoaded = samples => ({
+  type: actionTypes.SAMPLES_LOADED,
+  samples
+})

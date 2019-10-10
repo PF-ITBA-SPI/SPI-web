@@ -17,4 +17,27 @@ const floorSelector = (state = INITIAL_FLOOR_SELECTOR_STATE, action) => {
   }
 }
 
-export default combineReducers({ floorSelector })
+const INITIAL_APP_STATE = {
+  buildings: []
+}
+
+const app = (state = INITIAL_APP_STATE, action) => {
+  switch (action.type) {
+    case actionTypes.BUILDINGS_LOADED:
+      console.debug(`Loaded ${action.buildings.length} building(s)`)
+      return {
+        ...state,
+        buildings: action.buildings
+      }
+    case actionTypes.SAMPLES_LOADED:
+      console.debug(`Loaded ${action.samples.length} sample(s)`)
+      return {
+        ...state,
+        samples: action.samples
+      }
+    default:
+      return state
+  }
+}
+
+export default combineReducers({ app, floorSelector })
