@@ -41,6 +41,7 @@ export default class App extends React.Component {
         samples = samplesResponse.data
       this.setState({ buildings })
 
+      // This component isn't connect()ed, use store directly
       store.dispatch(buildingsLoaded(buildings))
       store.dispatch(samplesLoaded(samples))
     })
