@@ -10,7 +10,7 @@ const map = (state = INITIAL_MAP_STATE, action) => {
     case actionTypes.UPDATE_FLOOR:
       return {
         ...state,
-        currentFloorId: action.payload.floorId
+        currentFloorId: action.floorId
       }
     default:
       return state
