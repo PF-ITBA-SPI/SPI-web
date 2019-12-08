@@ -5,6 +5,11 @@ export const selectFloor = (floorId) => ({
   floorId,
 })
 
+export const selectSample = (sample) => ({
+  type: actionTypes.SELECT_SAMPLE,
+  sample,
+})
+
 export const buildingsLoaded = buildings => ({
   type: actionTypes.BUILDINGS_LOADED,
   buildings

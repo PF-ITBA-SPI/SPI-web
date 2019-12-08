@@ -3,6 +3,7 @@ import React from "react"
 import { connect } from "react-redux"
 import PropTypes from 'prop-types'
 import apiClient from "../apiClient"
+import { selectSample } from "../redux/actions"
 
 class MapContainer extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class MapContainer extends React.Component {
 
   onMarkerClick(markerSample) {
     this.setState({ location: null, currentSample: markerSample })
+    this.props.selectSample(markerSample) // Dispatch sample selected event
     apiClient.getLocation(markerSample._id).then(location => {
       const newLocation = (location.data && location.data.latitude && location.data.longitude) ? location.data : null
       if (!newLocation) {
@@ -100,5 +102,10 @@ const mapStateToProps = state => ({
   selectedFloorId: state.floorSelector.selectedFloorId
 })
 
+// Dispatch actions from props
+const mapDispatchToProps = ({
+  selectSample
+})
 
-export default connect(mapStateToProps)(WrappedMapContainer)
+
+export default connect(mapStateToProps, mapDispatchToProps)(WrappedMapContainer)

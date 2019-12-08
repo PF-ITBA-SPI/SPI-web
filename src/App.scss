@@ -9,9 +9,17 @@
     grid-area: map;
   }
 
-  .control {
+  #controls {
     grid-area: control;
-    place-self: center;
+    h1 {
+      text-align: center;
+    }
+
+    .detail {
+      overflow-y: scroll;
+      // TODO set height
+      // TODO set CSS grid display for rows
+    }
   }
 }
 

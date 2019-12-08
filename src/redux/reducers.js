@@ -20,6 +20,7 @@ const floorSelector = (state = INITIAL_FLOOR_SELECTOR_STATE, action) => {
 const INITIAL_APP_STATE = {
   buildings: [],
   samples: [],
+  selectedSample: null,
 }
 
 const app = (state = INITIAL_APP_STATE, action) => {
@@ -35,6 +36,12 @@ const app = (state = INITIAL_APP_STATE, action) => {
       return {
         ...state,
         samples: action.samples
+      }
+    case actionTypes.SELECT_SAMPLE:
+      console.debug(`Selected sample ${action.sample.id}`)
+      return {
+        ...state,
+        selectedSample: action.sample
       }
     default:
       return state

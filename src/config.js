@@ -7,8 +7,8 @@ const CONFIG = {
     jwt: `Bearer ${process.env.REACT_APP_JWT}`,
   },
   development: {
-    apiUrl: 'http://localhost:4000',
-    jwt: 'admin'
+    // apiUrl: 'http://localhost:4000',
+    apiUrl: 'https://pf-itba-spi.herokuapp.com',
   },
   production: {
     apiUrl: 'https://pf-itba-spi.herokuapp.com'

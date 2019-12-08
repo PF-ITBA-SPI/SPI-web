@@ -6,6 +6,7 @@ import MapContainer from "./components/MapContainer"
 import FloorSelector from "./components/FloorSelector"
 import { buildingsLoaded, samplesLoaded } from "./redux/actions"
 import apiClient from "./apiClient"
+import Controls from "./components/Controls";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -27,9 +28,7 @@ export default class App extends React.Component {
                         loadingElement={<h1>Loading...</h1>}
           />
           {this.state.buildings.length > 0 && <FloorSelector building={this.state.buildings[0]}/>}
-          <div className="control">
-            <h1>Controls here</h1>
-          </div>
+          <Controls />
         </div>
       </Provider>
     );
