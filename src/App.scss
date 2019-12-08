@@ -11,14 +11,23 @@
 
   #controls {
     grid-area: control;
+    height: 100vh;
+    overflow-y: auto;
+
     h1 {
       text-align: center;
     }
 
     .detail {
-      overflow-y: scroll;
-      // TODO set height
-      // TODO set CSS grid display for rows
+      table {
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;
+      }
+
+      table, th, td {
+        border: 1px solid black;
+      }
     }
   }
 }

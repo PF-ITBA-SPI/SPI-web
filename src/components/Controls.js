@@ -27,17 +27,36 @@ class Controls extends React.Component {
       return
     }
 
-    return Object.entries(selectedSample.fingerprint).flatMap((bssid, rssi) => {
+    let rows = Object.entries(selectedSample.fingerprint).flatMap(([bssid, rssi]) => {
       const networkName = (selectedSample.extra[bssid] && selectedSample.extra[bssid].SSID) || '?'
-
       return (
-          <div className="row">
-            <div className="bssid">{bssid}</div>
-            <div className="ssid">{networkName}</div>
-            <div className="rssi">{rssi}</div>
-          </div>
+          <tr className="row">
+            <td className="bssid">{bssid}</td>
+            <td className="ssid">{networkName}</td>
+            <td className="rssi">{rssi}</td>
+          </tr>
       )
     })
+    if (!rows.length) {
+      rows = (<tr className="row">
+        <td colspan="3">No APs</td>
+      </tr>)
+    }
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>BSSID</th>
+            <th>SSID</th>
+            <th>RSSI (dBm)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows}
+        </tbody>
+      </table>
+    )
   }
 
   render() {
